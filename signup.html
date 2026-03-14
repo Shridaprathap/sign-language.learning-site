@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up - AI Sign Language</title>
+<style>
+body { font-family: Arial, sans-serif; background: #eef5fb; display: flex; justify-content: center; align-items: center; height: 100vh; }
+.signup-container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 350px; text-align: center; }
+input { width: 100%; padding: 10px; margin: 10px 0; border-radius: 8px; border: 1px solid #ccc; }
+button { background: #5aa9ff; color: white; padding: 12px 20px; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; }
+button:hover { transform: scale(1.05); transition: 0.3s; }
+</style>
+</head>
+<body>
+
+<div class="signup-container">
+<h2>Create Your Account</h2>
+<form id="signupForm">
+<input type="text" id="username" placeholder="Enter Username" required>
+<input type="password" id="password" placeholder="Enter Password" required>
+<button type="submit">Sign Up</button>
+</form>
+<p>Already have an account? <a href="index.html">Login</a></p>
+</div>
+
+<script>
+document.getElementById('signupForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    let username = document.getElementById('username').value;
+    let password = document.getElementById('password').value;
+    localStorage.setItem('username', username);
+    localStorage.setItem('password', password); // optional for testing
+    window.location.href = 'index.html';
+});
+</script>
+
+</body>
+</html>

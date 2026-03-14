@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practice Assistant</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:linear-gradient(to right,#eef5fb,#dcecff);
+}
+
+header{
+    background:white;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+
+.chat-container{
+    width:60%;
+    margin:40px auto;
+    background:white;
+    border-radius:25px;
+    padding:25px;
+    box-shadow:0 6px 15px rgba(0,0,0,0.1);
+}
+
+#chatbox{
+    height:350px;
+    overflow-y:auto;
+    border:1px solid #ddd;
+    border-radius:15px;
+    padding:15px;
+    text-align:left;
+    margin-bottom:20px;
+}
+
+input{
+    width:75%;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #ccc;
+}
+
+button{
+    padding:12px 20px;
+    border:none;
+    border-radius:10px;
+    background:#5aa9ff;
+    color:white;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🤖 Practice Assistant</h1>
+    <button onclick="window.location.href='index.html'">⬅ Back Home</button>
+</header>
+
+<div class="chat-container">
+
+    <div id="chatbox">
+        <p><b>AI:</b> Ask me about letters or sign language words.</p>
+    </div>
+
+    <input type="text" id="userInput" placeholder="Example: A, hello, thank you">
+    <button onclick="sendMessage()">Send</button>
+
+</div>
+
+<script>
+function sendMessage(){
+    let input = document.getElementById("userInput").value.toLowerCase();
+    let chatbox = document.getElementById("chatbox");
+
+    chatbox.innerHTML += "<p><b>You:</b> " + input + "</p>";
+
+    let replies = {
+
+        "a":"A = closed fist with thumb on side",
+        "b":"B = fingers up, thumb across palm",
+        "c":"C = hand curved like letter C",
+        "d":"D = one finger up, others touch thumb",
+        "e":"E = fingers curled down",
+
+        "hello":"Hello = wave hand near forehead",
+        "thank you":"Thank you = chin outward",
+        "yes":"Yes = fist nodding motion",
+        "no":"No = two fingers close together",
+        "please":"Please = circle hand on chest",
+        "sorry":"Sorry = circle fist on chest",
+        "friend":"Friend = two fingers linked",
+        "eat":"Eat = fingers to mouth",
+        "drink":"Drink = thumb to mouth",
+        "love":"Love = arms crossed chest",
+        "family":"Family = circle F hands",
+        "mother":"Mother = thumb chin",
+        "father":"Father = thumb forehead",
+        "school":"School = clap hands flat",
+        "book":"Book = open palms",
+        "help":"Help = fist on palm upward",
+        "stop":"Stop = hand on palm",
+        "good":"Good = chin to palm",
+        "bad":"Bad = chin downward",
+        "more":"More = fingertips together",
+        "finish":"Finish = flick hands out",
+        "work":"Work = fists tap",
+        "name":"Name = two fingers tap",
+        "where":"Where = index shake",
+        "who":"Who = finger chin",
+        "what":"What = hands open"
+    };
+
+    let reply = replies[input] || "Try letters A-E or words like hello, thank you, school, family.";
+
+    chatbox.innerHTML += "<p><b>AI:</b> " + reply + "</p>";
+
+    document.getElementById("userInput").value = "";
+    chatbox.scrollTop = chatbox.scrollHeight;
+}
+</script>
+
+</body>
+</html>

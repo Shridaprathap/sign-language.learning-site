@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Language Test</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:linear-gradient(to right,#eef5fb,#dcecff);
+    text-align:center;
+}
+
+header{
+    background:white;
+    padding:20px;
+}
+
+.quiz-box{
+    width:60%;
+    margin:40px auto;
+    background:white;
+    border-radius:25px;
+    padding:30px;
+}
+
+.option-btn{
+    display:block;
+    width:80%;
+    margin:15px auto;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:#5aa9ff;
+    color:white;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>📝 Sign Language Test</h1>
+    <button onclick="window.location.href='index.html'">⬅ Back Home</button>
+</header>
+
+<div class="quiz-box">
+    <h2 id="question"></h2>
+
+    <button class="option-btn" onclick="checkAnswer(0)" id="btn0"></button>
+    <button class="option-btn" onclick="checkAnswer(1)" id="btn1"></button>
+    <button class="option-btn" onclick="checkAnswer(2)" id="btn2"></button>
+
+    <h3 id="result"></h3>
+</div>
+
+<script>
+let quiz = [
+
+{q:"Mother sign?", options:["Thumb chin","Thumb forehead","Wave hand"], a:0, cat:"Family"},
+{q:"Father sign?", options:["Thumb chin","Tap chest","Thumb forehead"], a:2, cat:"Family"},
+{q:"Friend sign?", options:["Cross arms","Linked fingers","Touch chin"], a:1, cat:"Family"},
+
+{q:"Book sign?", options:["Clap hands","Open palms","Point"], a:1, cat:"School"},
+{q:"School sign?", options:["Wave forehead","Clap flat hands","Tap shoulder"], a:1, cat:"School"},
+{q:"Help sign?", options:["Open hand","Point up","Fist on palm"], a:2, cat:"School"},
+
+{q:"Hello sign?", options:["Touch chin","Wave forehead","Cross arms"], a:1, cat:"Basic"},
+{q:"Thank you sign?", options:["Tap chest","Chin outward","Point"], a:1, cat:"Basic"},
+{q:"Yes sign?", options:["Flat palm","Fist nodding","Wave hand"], a:1, cat:"Basic"},
+
+{q:"A letter?", options:["Flat hand","Closed fist","Two fingers"], a:1, cat:"Letters"},
+{q:"B letter?", options:["Flat hand","Closed fist","Thumb out"], a:0, cat:"Letters"},
+{q:"C letter?", options:["Flat palm","Curved hand","Closed hand"], a:1, cat:"Letters"}
+
+];
+
+let current = 0;
+let score = 0;
+
+let mistakes = {
+Family:0,
+School:0,
+Basic:0,
+Letters:0
+};
+
+function loadQuestion(){
+document.getElementById("question").innerHTML = quiz[current].q;
+document.getElementById("btn0").innerHTML = quiz[current].options[0];
+document.getElementById("btn1").innerHTML = quiz[current].options[1];
+document.getElementById("btn2").innerHTML = quiz[current].options[2];
+}
+
+function checkAnswer(choice){
+
+if(choice == quiz[current].a){
+score++;
+document.getElementById("result").innerHTML = "✅ Correct";
+}else{
+mistakes[quiz[current].cat]++;
+document.getElementById("result").innerHTML = "❌ Wrong";
+}
+
+current++;
+
+setTimeout(function(){
+
+if(current < quiz.length){
+loadQuestion();
+document.getElementById("result").innerHTML = "";
+}else{
+
+localStorage.setItem("signScore", score);
+
+let weak = Object.keys(mistakes).reduce((a,b)=>mistakes[a]>mistakes[b]?a:b);
+
+document.querySelector(".quiz-box").innerHTML =
+"<h2>🎉 Finished</h2>" +
+"<h3>Score: " + score + "/" + quiz.length + "</h3>" +
+"<h3>⚠ Practice more: " + weak + "</h3>";
+
+}
+
+},800);
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
